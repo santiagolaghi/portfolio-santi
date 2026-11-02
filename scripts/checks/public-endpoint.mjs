@@ -1,6 +1,16 @@
 import assert from 'node:assert/strict';
-import {publishedPortfolio} from '../../api/portfolio.ts';
-import {initialPortfolio} from '../../lib/portfolio.ts';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import ts from 'typescript';
+
+// Exercise emitted ESM, including the extension that the production runtime resolves.
+for(const path of ['lib/portfolio','api/portfolio']){
+  await mkdir('.checks/'+path.split('/')[0],{recursive:true});
+  const source=await readFile(path+'.ts','utf8');
+  const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+  await writeFile('.checks/'+path+'.js',compiled);
+}
+const {publishedPortfolio}=await import('../../.checks/api/portfolio.js');
+const {initialPortfolio}=await import('../../.checks/lib/portfolio.js');
 
 let calls=0;
 const upstream=async(url,options)=>{

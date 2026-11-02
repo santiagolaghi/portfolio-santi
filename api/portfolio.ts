@@ -1,4 +1,4 @@
-import {portfolioSchema,publicPortfolio} from '../lib/portfolio.ts';
+import {portfolioSchema,publicPortfolio} from '../lib/portfolio.js';
 
 // Read only bridge: never forward caller headers, cookies, query strings or bodies.
 const publishedUrl='https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/api/portfolio';
