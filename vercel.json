@@ -1,0 +1,24 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "pnpm build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/media/:path*",
+      "destination": "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/media/:path*"
+    },
+    {
+      "source": "/fonts/:path*",
+      "destination": "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/fonts/:path*"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/assets/:path*"
+    },
+    {
+      "source": "/real-demos/:path*",
+      "destination": "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/real-demos/:path*"
+    }
+  ]
+}
