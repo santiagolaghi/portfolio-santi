@@ -7,6 +7,9 @@ const webUrl = z.string().trim().max(2000).refine(value => {
   catch { return false; }
 }, "Usá una dirección completa que empiece con https://");
 const mediaUrl = z.string().max(2000).refine(value => !value || /^\/media\/[a-f0-9-]+\.(png|jpg|webp|gif|pdf)$/.test(value) || webUrl.safeParse(value).success, "La dirección del archivo no es válida.");
+export const studioPortraitUrl = "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/assets/santi-portrait-studio-v1.png";
+// Replace the superseded portrait when reading existing content. New uploads stay editable.
+const profilePhotoUrl = mediaUrl.transform(value => value === "/media/17d885f9-eef5-4b46-b09e-d4cdea828e2d.png" ? studioPortraitUrl : value);
 export const demoTypes = ["tnt", "finance", "bible", "notes", "day", "gallery", "embed"] as const;
 export const projectSchema = z.object({
   id: z.string().min(1).max(100).regex(/^[a-zA-Z0-9_-]+$/),
@@ -26,7 +29,7 @@ export const portfolioSchema = z.object({
   profile: z.object({
     name: text(60).min(1), role: text(120), headline: text(120).min(1), headlineAccent: text(120),
     intro: text(600), location: text(80), availability: text(120), aboutTitle: text(150),
-    bio: text(2500), aboutDetail: text(2500), interests: z.array(text(80)).max(12), photoUrl: mediaUrl,
+    bio: text(2500), aboutDetail: text(2500), interests: z.array(text(80)).max(12), photoUrl: profilePhotoUrl,
     email: z.union([z.literal(""), z.string().trim().email().max(200)]),
     whatsapp: z.string().max(30).regex(/^[0-9+\s()-]*$/, "Usá solo el número de teléfono con código de país."),
     linkedin: webUrl, github: webUrl, cvUrl: mediaUrl,
@@ -60,7 +63,7 @@ export const initialPortfolio: PortfolioData = {
     bio: "Soy Santi, pastor de jóvenes y creador de aplicaciones. Mi fe y el trabajo con personas son parte de lo que me inspira a crear.",
     aboutDetail: "Me gusta transformar necesidades cotidianas en herramientas útiles: para una comunidad, para organizar las finanzas o para compartir mejor el día a día. Defino las ideas, pienso las funciones y trabajo el desarrollo con asistencia de IA, probando y ajustando cada experiencia.",
     interests: ["Crear herramientas útiles", "La comunidad", "Mi fe", "Organizar ideas"],
-    photoUrl: "", email: "", whatsapp: "", linkedin: "", github: "", cvUrl: "",
+    photoUrl: studioPortraitUrl, email: "", whatsapp: "", linkedin: "", github: "", cvUrl: "",
     contactTitle: "Construyamos la próxima idea.",
     contactText: "Estoy buscando oportunidades para aportar mi manera de pensar, crear y resolver problemas. Si mi trabajo conecta con lo que necesitás, conversemos.",
     footer: "Hecho con ideas, propósito y muchas ganas de crear.",

@@ -16,6 +16,10 @@ body { background:var(--page-bg);color:var(--page-text); }
 .hero-scene { right:14%;top:6px;width:32%;height:calc(100% - 14px);transform:none;border-radius:38px; }
 .hero-scene .scene-portrait,.hero-scene .scene-portrait.own-portrait { inset:0;width:100%;height:100%;max-width:100%;object-fit:cover;object-position:center 25%;border-radius:38px;mask-image:none; }
 .hero-scene .scene-sample-note { left:0;right:0;bottom:8px;margin:0 auto;max-width:120px;padding:4px 8px;border-radius:6px;background:#08090dbb;color:#e3dfef;text-align:center;font-size:9px; }
+.hero-scene.studio-portrait { border-radius:0;isolation:isolate; }
+.hero-scene.studio-portrait::before { content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 65% 42%,#8d45e62b,transparent 65%),radial-gradient(ellipse at 28% 65%,#b5ec500d,transparent 55%);mask-image:radial-gradient(ellipse,#000 20%,transparent 70%);pointer-events:none; }
+.hero-scene.studio-portrait .scene-portrait.studio-cutout { border-radius:0;object-position:center top;mask-image:linear-gradient(to bottom,#000 0%,#000 79%,transparent 100%); }
+[data-color-mode="light"] .hero-scene.studio-portrait::before { background:radial-gradient(ellipse at 65% 42%,#a671e626,transparent 65%),radial-gradient(ellipse at 28% 65%,#a6d54012,transparent 55%); }
 .hero-buttons .secondary { min-width:0;white-space:nowrap; }
 
 :root[data-color-mode="light"] { color-scheme:light;--page-bg:#f6f7fc;--page-text:#202337;color:var(--page-text);background:var(--page-bg); }
