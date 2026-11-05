@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { upgradeCatalog } from "./catalog.js";
 
 const text = (max = 400) => z.string().trim().max(max);
 const webUrl = z.string().trim().max(2000).refine(value => {
@@ -6,11 +7,11 @@ const webUrl = z.string().trim().max(2000).refine(value => {
   try { const url = new URL(value); return url.protocol === "https:" && !url.username && !url.password; }
   catch { return false; }
 }, "Usá una dirección completa que empiece con https://");
-const mediaUrl = z.string().max(2000).refine(value => !value || /^\/media\/[a-f0-9-]+\.(png|jpg|webp|gif|pdf)$/.test(value) || webUrl.safeParse(value).success, "La dirección del archivo no es válida.");
+const mediaUrl = z.string().max(2000).refine(value => !value || /^\/assets\/semilla\/(library|editor|series|series-detail|pulpit|verse-preview)\.png$/.test(value) || /^\/media\/[a-f0-9-]+\.(png|jpg|webp|gif|pdf)$/.test(value) || webUrl.safeParse(value).success, "La dirección del archivo no es válida.");
 export const studioPortraitUrl = "https://santi-apps-portfolio.laghisantiagonicolas.chatgpt.site/assets/santi-portrait-studio-v1.png";
 // Replace the superseded portrait when reading existing content. New uploads stay editable.
 const profilePhotoUrl = mediaUrl.transform(value => value === "/media/17d885f9-eef5-4b46-b09e-d4cdea828e2d.png" ? studioPortraitUrl : value);
-export const demoTypes = ["tnt", "finance", "bible", "notes", "day", "gallery", "embed"] as const;
+export const demoTypes = ["tnt", "finance", "bible", "notes", "day", "semilla", "planner", "pantry", "gallery", "embed"] as const;
 export const projectSchema = z.object({
   id: z.string().min(1).max(100).regex(/^[a-zA-Z0-9_-]+$/),
   name: text(90).min(1, "Cada app necesita un nombre."),
@@ -23,9 +24,10 @@ export const projectSchema = z.object({
   color: z.string().regex(/^#[a-fA-F0-9]{6}$/),
   demoType: z.enum(demoTypes), visible: z.boolean(), featured: z.boolean(),
   previewMode: z.enum(["auto", "real", "embed", "gallery", "none"]).default("auto"),
-  realApp: z.enum(["", "tnt", "finance", "day"]).default(""),
+  realApp: z.enum(["", "tnt", "finance", "day", "bible", "planner", "pantry"]).default(""),
 });
 export const portfolioSchema = z.object({
+  catalogVersion: z.number().int().nonnegative().default(0),
   profile: z.object({
     name: text(60).min(1), role: text(120), headline: text(120).min(1), headlineAccent: text(120),
     intro: text(600), location: text(80), availability: text(120), aboutTitle: text(150),
@@ -55,7 +57,8 @@ export const themes = [
   { id: "amber", name: "Ámbar", color: "#ffcc79" },
 ] as const;
 const baseProject = { url: "", repoUrl: "", embedUrl: "", coverUrl: "", gallery: [], stack: [], visible: true, featured: false, previewMode: "auto" as const, realApp: "" as const };
-export const initialPortfolio: PortfolioData = {
+const originalPortfolio: PortfolioData = {
+  catalogVersion: 0,
   profile: {
     name: "Santi", role: "Creador de aplicaciones · Productos digitales", headline: "Hola, soy", headlineAccent: "Santi.",
     intro: "Diseño y desarrollo herramientas digitales que simplifican la vida. Me enfoco en crear productos útiles, simples y con una gran experiencia de uso.",
@@ -88,6 +91,7 @@ export const initialPortfolio: PortfolioData = {
     { ...baseProject, id: "dia", name: "Día a Día", subtitle: "Organizarse también es compartir.", category: "Vida diaria", status: "Proyecto", description: "Una rutina más simple para organizar tareas y planes en pareja.", problem: "Compartir la vida también implica coordinar horarios, tareas y responsabilidades.", solution: "Una organización compartida con tareas, horarios y responsables para tener una visión en común.", contribution: "Definición de funciones y flujos de invitación, pruebas de la experiencia y mejoras con asistencia de IA.", features: ["Organización en pareja", "Tareas compartidas", "Horarios y responsables"], color: "#c68c46", demoType: "day" },
   ],
 };
+export const initialPortfolio = upgradeCatalog(originalPortfolio);
 export function createProjectId(): string {
   return typeof crypto.randomUUID === "function" ? crypto.randomUUID() : `app-${Date.now()}-${Math.random().toString(36).slice(2,10)}`;
 }

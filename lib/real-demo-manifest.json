@@ -1,6 +1,6 @@
 {
   "tnt": {
-    "url": "/real-demos/tnt.78b0dfc0578facadaaaa.json",
+    "url": "/real-demos/tnt.d93303770ff3bb2a2411.json",
     "resources": [
       "/assets/bible/rvr1909/1CH.json",
       "/assets/bible/rvr1909/1CO.json",
@@ -89,14 +89,103 @@
     ]
   },
   "finance": {
-    "url": "/real-demos/finance.84182e2f353d0337ced8.json",
+    "url": "/real-demos/finance.aea422c36eabf15f7a7b.json",
     "resources": [],
     "routes": [
       "/"
     ]
   },
   "day": {
-    "url": "/real-demos/day.efabe4efa7e4158226e7.json",
+    "url": "/real-demos/day.985b68a9280768042570.json",
+    "resources": [],
+    "routes": [
+      "/"
+    ]
+  },
+  "bible": {
+    "url": "/real-demos/bible.573cd4aff6037157dbfc.json",
+    "resources": [
+      "/data/1.json",
+      "/data/10.json",
+      "/data/11.json",
+      "/data/12.json",
+      "/data/13.json",
+      "/data/14.json",
+      "/data/15.json",
+      "/data/16.json",
+      "/data/17.json",
+      "/data/18.json",
+      "/data/19.json",
+      "/data/2.json",
+      "/data/20.json",
+      "/data/21.json",
+      "/data/22.json",
+      "/data/23.json",
+      "/data/24.json",
+      "/data/25.json",
+      "/data/26.json",
+      "/data/27.json",
+      "/data/28.json",
+      "/data/29.json",
+      "/data/3.json",
+      "/data/30.json",
+      "/data/31.json",
+      "/data/32.json",
+      "/data/33.json",
+      "/data/34.json",
+      "/data/35.json",
+      "/data/36.json",
+      "/data/37.json",
+      "/data/38.json",
+      "/data/39.json",
+      "/data/4.json",
+      "/data/40.json",
+      "/data/41.json",
+      "/data/42.json",
+      "/data/43.json",
+      "/data/44.json",
+      "/data/45.json",
+      "/data/46.json",
+      "/data/47.json",
+      "/data/48.json",
+      "/data/49.json",
+      "/data/5.json",
+      "/data/50.json",
+      "/data/51.json",
+      "/data/52.json",
+      "/data/53.json",
+      "/data/54.json",
+      "/data/55.json",
+      "/data/56.json",
+      "/data/57.json",
+      "/data/58.json",
+      "/data/59.json",
+      "/data/6.json",
+      "/data/60.json",
+      "/data/61.json",
+      "/data/62.json",
+      "/data/63.json",
+      "/data/64.json",
+      "/data/65.json",
+      "/data/66.json",
+      "/data/7.json",
+      "/data/8.json",
+      "/data/9.json",
+      "/data/books.json"
+    ],
+    "routes": [
+      "/"
+    ]
+  },
+  "pantry": {
+    "url": "/real-demos/pantry.235f7f96c782047db085.json",
+    "resources": [],
+    "routes": [
+      "/"
+    ]
+  },
+  "planner": {
+    "url": "/real-demos/planner.1ba39360f9b9c8cbb851.json",
     "resources": [],
     "routes": [
       "/"

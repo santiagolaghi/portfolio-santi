@@ -53,12 +53,12 @@ export default function RealPreview({app,miniature=false}:{app:RealApp;miniature
       }
       if(message.type==="portfolio-demo:resource"){
         const requested=message.path;
-        if(app!=="tnt"||typeof requested!=="string"||!bundle.current?.resources.includes(requested)||typeof message.id!=="string"||message.id.length>12)return;
+        if(!["tnt","bible"].includes(app)||typeof requested!=="string"||!bundle.current?.resources.includes(requested)||typeof message.id!=="string"||message.id.length>12)return;
         const responseNonce=nonce.current,source=event.source as Window;
         try{
           const filename=requested.split("/").at(-1)!;
-          if(!resources.has(filename))resources.set(filename,fetch("/real-demos/tnt-bible/"+filename).then(async r=>{if(!r.ok)throw new Error("No pudimos cargar este libro.");return r.text();}).catch(e=>{resources.delete(filename);throw e;}));
-          const content=await resources.get(filename)!;
+          if(!resources.has(app+":"+filename))resources.set(app+":"+filename,fetch("/real-demos/"+(app==="tnt"?"tnt-bible/":"bible-data/")+filename).then(async r=>{if(!r.ok)throw new Error("No pudimos cargar este libro.");return r.text();}).catch(e=>{resources.delete(app+":"+filename);throw e;}));
+          const content=await resources.get(app+":"+filename)!;
           if(responseNonce===nonce.current)source.postMessage({type:"portfolio-demo:resource-result",nonce:responseNonce,id:message.id,content},"*");
         }catch(e){source.postMessage({type:"portfolio-demo:resource-result",nonce:responseNonce,id:message.id,error:e instanceof Error?e.message:"Error de carga"},"*");}
       }

@@ -56,7 +56,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
           </div>
           <div className={"project-playground viewport-" + viewport}>
             <div className="playground-header">
-              <span><i />{kind === "real" ? "APP ORIGINAL · MODO DE PRUEBA" : kind === "embed" ? "APP ORIGINAL · VISTA INTEGRADA" : kind === "gallery" ? "CAPTURAS DEL PROYECTO" : "PENDIENTE DE CONECTAR"}</span>
+              <span><i />{kind === "real" ? "APP ORIGINAL · MODO DE PRUEBA" : kind === "embed" ? "APP ORIGINAL · VISTA INTEGRADA" : kind === "gallery" ? (project.demoType === "semilla" ? "CAPTURAS REALES · ANDROID" : "CAPTURAS DEL PROYECTO") : "PENDIENTE DE CONECTAR"}</span>
               {(kind === "real" || kind === "embed") && <div className="preview-tools"><div className="viewport-switch" aria-label="Tamaño de la vista previa"><button className={viewport === "mobile" ? "active" : ""} aria-pressed={viewport === "mobile"} aria-label="Vista móvil" onClick={() => setViewport("mobile")}><Smartphone size={15} /><span>Móvil</span></button><button className={viewport === "desktop" ? "active" : ""} aria-pressed={viewport === "desktop"} aria-label="Vista de escritorio" onClick={() => setViewport("desktop")}><Monitor size={15} /><span>Escritorio</span></button></div><button className="icon-button" aria-label="Reiniciar demo" title="Reiniciar demo" onClick={() => setReset(value => value + 1)}><RotateCcw size={15} /></button></div>}
             </div>
             <div className="real-device-viewport"><div className={"device-frame " + (kind === "real" || kind === "embed" ? "original-device" : "")}>
@@ -66,7 +66,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             <p className="playground-note">
               {kind === "real" ? "Pantallas y lógica originales, con datos de prueba. Los cambios duran esta sesión. El ingreso, la sincronización y los servicios externos están disponibles en la app publicada."
                 : kind === "embed" ? "Esta vista carga la app desde la dirección configurada."
-                  : kind === "gallery" ? "Capturas y contenido del proyecto." : "Falta vincular la versión original de esta app."}
+                  : kind === "gallery" ? project.demoType === "semilla" ? "Capturas reales de la app nativa para Android. Recorré la biblioteca, el editor, las series y el modo púlpito con las flechas." : "Capturas y contenido del proyecto." : "Falta vincular la versión original de esta app."}
               {realApp && <a className="preview-source" href={realApps[realApp].url} target="_blank" rel="noopener noreferrer">Fuente: {realApps[realApp].source}<ExternalLink size={11}/></a>}
             </p>
           </div>
@@ -84,7 +84,7 @@ function ProjectCard({ app, onOpen }: { app: Project; onOpen: () => void }) {
     <div className="project-card-copy">
       <div className="project-title-row"><ProductGlyph type={app.demoType} /><h3><button onClick={onOpen}>{app.name}</button></h3></div>
       <p>{app.description || app.subtitle}</p>
-      <button className="project-demo-button" onClick={onOpen}>{kind === "real" || kind === "embed" ? "Probar app" : "Ver proyecto"}<ArrowRight size={14} /></button>
+      <button className="project-demo-button" onClick={onOpen}>{kind === "real" || kind === "embed" ? "Probar app" : app.demoType === "semilla" ? "Ver app Android" : "Ver proyecto"}<ArrowRight size={14} /></button>
       {app.status === "En desarrollo" && <span className="project-state">En desarrollo</span>}
     </div>
     <button className="project-art-button" onClick={onOpen} aria-label={"Ver y probar " + app.name}>

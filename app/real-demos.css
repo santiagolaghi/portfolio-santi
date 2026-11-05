@@ -50,3 +50,10 @@
 @media(max-width:1100px){.connected-project .project-dialog-body{grid-template-columns:250px minmax(0,1fr)}.connected-project .project-story{padding:22px 20px}.viewport-switch button>span{display:none}}
 @media(max-width:760px){.connected-project .project-dialog-body{display:flex;flex-direction:column}.connected-project .project-playground{padding:13px 10px 18px}.connected-project .project-story{padding:28px 23px}.connected-project .playground-header{max-width:none}.connected-project .playground-header>span{font-size:8px;letter-spacing:.6px}.viewport-switch button{padding:6px 8px}.real-device-viewport{padding:0 0 9px}.device-frame.original-device{border-width:3px;border-radius:16px}.real-preview{height:65dvh;min-height:425px}.viewport-desktop .original-device{min-width:1024px}.connected-project .playground-note{font-size:10px;padding:0 9px}.real-preview-mini>iframe{transform:scale(.72)}}
 @media(prefers-reduced-motion:reduce){.real-preview-loading .spin{animation:none}}
+
+/* Native Android screenshots are shown whole, without a fabricated web demo. */
+.gallery-demo{position:relative;height:clamp(440px,67dvh,760px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.gallery-demo>img{width:100%;height:100%;object-fit:contain;background:#faf9f6}
+.gallery-demo .gallery-controls{position:absolute;inset:auto 12px 12px;display:flex;align-items:center;justify-content:center;gap:14px;border-radius:12px;padding:6px;background:#171722ed;color:#f7f6fc}
+.glyph-semilla{color:#dc7767}.glyph-planner{color:#efb77c}.glyph-pantry{color:#a2cf9e}
+@media(min-width:1200px){.project-grid:has(> :nth-child(6)){grid-template-columns:repeat(4,minmax(0,1fr))}}

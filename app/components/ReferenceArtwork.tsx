@@ -1,12 +1,14 @@
 "use client";
 import { useId, lazy, Suspense } from "react";
-import { ArrowUpRight, Link2 } from "lucide-react";
+import { ArrowUpRight, Link2, Sprout, ShoppingBasket, CalendarRange } from "lucide-react";
 import type { Project } from "@/lib/portfolio";
 import { realDemoFor } from "@/lib/real-demos";
 const RealPreview = lazy(() => import("./RealPreview"));
 
 export function ProductGlyph({ type }: { type: Project["demoType"] }) {
   const id = useId().replace(/:/g, "");
+  const Custom = ({semilla:Sprout,planner:CalendarRange,pantry:ShoppingBasket} as Record<string,typeof Sprout>)[type];
+  if(Custom)return <span className={"product-glyph glyph-"+type} aria-hidden="true"><Custom size={36} strokeWidth={1.9}/></span>;
   const tone = type === "tnt" ? ["#ffb04e", "#ee492c"] : type === "bible" ? ["#c675ff", "#7430da"]
     : type === "finance" ? ["#d8ff92", "#7bb62e"] : ["#ffe079", "#d89e20"];
   return <span className={"product-glyph glyph-" + type} aria-hidden="true">

@@ -1,8 +1,8 @@
-import { ArrowUpRight, BookOpen, CalendarDays, Check, Heart, LayoutGrid, NotebookPen, Plus, Users, Wallet } from "lucide-react";
+import { ArrowUpRight, BookOpen, Sprout, ShoppingBasket, CalendarRange, CalendarDays, Check, Heart, LayoutGrid, NotebookPen, Plus, Users, Wallet } from "lucide-react";
 import type { Project } from "@/lib/portfolio";
 
 export function AppIcon({type,className=""}:{type:Project["demoType"];className?:string}) {
-  const Icon=({tnt:Users,finance:Wallet,bible:BookOpen,notes:NotebookPen,day:CalendarDays,gallery:LayoutGrid,embed:LayoutGrid})[type];
+  const Icon=({tnt:Users,finance:Wallet,bible:BookOpen,notes:NotebookPen,day:CalendarDays,semilla:Sprout,planner:CalendarRange,pantry:ShoppingBasket,gallery:LayoutGrid,embed:LayoutGrid})[type];
   return <span className={`app-icon ${className}`}><Icon size={21} strokeWidth={1.8}/></span>;
 }
 export default function Artwork({project,hero=false}:{project:Project;hero?:boolean}) {
